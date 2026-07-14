@@ -3,9 +3,9 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        k=k%len(nums)
-        for _ in range(k):
-            l_e=nums.pop(-1)
-            nums.insert(0,l_e)
+        k%=len(nums)
+        nums.reverse()
+        nums[:k]=reversed(nums[:k])
+        nums[k:]=reversed(nums[k:])
         
         
