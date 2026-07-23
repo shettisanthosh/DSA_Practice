@@ -1,13 +1,14 @@
 class Solution {
     public int uniqueXorTriplets(int[] nums) {
-        int n=nums.length;
-        if(n==1 || n==2){
-            return n;
+        int n = nums.length;
+
+        if (n <= 2) return n;
+
+        int mask = 0;
+        for (int num : nums) {
+            mask |= num;
         }
-        int ans=1;
-        while(ans<=n){
-            ans=(ans<<1);
-        }
-        return ans;
+
+        return mask + 1;
     }
 }
