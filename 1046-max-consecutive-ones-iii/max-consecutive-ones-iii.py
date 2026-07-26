@@ -4,7 +4,7 @@ class Solution:
         while r<len(nums):
             if nums[r]==0:
                 z+=1
-            while z>k:
+            if z>k:
                 if nums[l]==0:
                     z-=1
                 l+=1
