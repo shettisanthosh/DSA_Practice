@@ -10,37 +10,34 @@
  */
 class Solution {
     public int[] nodesBetweenCriticalPoints(ListNode head) {
-        int count=0;
-        ListNode temp=head;
-        while(temp!=null){
-            count++;
-            temp=temp.next;
+        if(head==null || head.next==null || head.next.next==null){
+            return new int[]{-1,-1};
         }
-        int arr[]=new int[count];
-        temp=head;
-        int index=0;
-        while(temp!=null){
-            arr[index]=temp.val;
-            index++;
-            temp=temp.next;
-        }
-        ArrayList<Integer> criticalPoints = new ArrayList<>();
-        for (int i = 1; i < count - 1; i++) {
-            boolean isLocalMaxima = arr[i] > arr[i - 1] && arr[i] > arr[i + 1];
-            boolean isLocalMinima = arr[i] < arr[i - 1] && arr[i] < arr[i + 1];
-            if (isLocalMaxima || isLocalMinima) {
-                criticalPoints.add(i + 1); 
+        int first=-1;
+        int prev=-1;
+        int minD=Integer.MAX_VALUE;
+        ListNode prevN=head;
+        ListNode currN=head.next;
+        int i=1;
+        while(currN.next!=null){
+            ListNode nextN=currN.next;
+            boolean isMax=currN.val > prevN.val && currN.val >nextN.val;
+            boolean isMin=currN.val<prevN.val && currN.val<nextN.val;
+            if(isMax || isMin){
+                if(first==-1){
+                    first=i;
+                }else{
+                    minD=Math.min(minD,i-prev);
+                }
+                prev=i;
             }
+            prevN=currN;
+            currN=nextN;
+            i++;
         }
-        if (criticalPoints.size() < 2) {
-            return new int[]{-1, -1};
+        if(first==prev){
+            return new int[]{-1,-1};
         }
-        int minDistance = Integer.MAX_VALUE;
-        int maxDistance = criticalPoints.get(criticalPoints.size() - 1) - criticalPoints.get(0);
-        for (int i = 1; i < criticalPoints.size(); i++) {
-            int currentDistance = criticalPoints.get(i) - criticalPoints.get(i - 1);
-            minDistance = Math.min(minDistance, currentDistance);
-        }
-        return new int[]{minDistance, maxDistance};
+        return new int[]{minD,prev-first};
     }
 }
