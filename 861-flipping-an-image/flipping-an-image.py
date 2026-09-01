@@ -1,8 +1,7 @@
 class Solution:
     def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
-        for row in image:
-            row.reverse()
-        for row in image:
-            for i in range(len(row)):
-                row[i]=row[i]^1
+        for i in image:
+            i.reverse()
+            for j in range(len(i)):
+                i[j]= 1- i[j]
         return image
