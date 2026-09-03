@@ -1,9 +1,6 @@
 class Solution:
     def uniformArray(self, nums1: list[int]) -> bool:
-        nums1.sort()
-        if nums1[0]%2==1:
+        mn=min(nums1)
+        if mn%2==1:
             return True
-        for ele in nums1:
-            if ele%2==1:
-                return False
-        return True
+        return all(ele%2==0 for ele in nums1)
