@@ -1,11 +1,14 @@
-from collections import Counter
 class Solution:
     def rearrangeArray(self, nums: list[int]) -> list[int]:
-        count=Counter(nums)
-        ans=[]
-        for _ in range(max(count.values()) if count else 0):
-            for val in sorted(count.keys()):
-                if count[val]>0:
-                    ans.append(val)
-                    count[val]-=1
+        freq = {}
+        for x in nums:
+            freq[x] = freq.get(x, 0) + 1
+        ans = []
+        while freq:
+            for x in sorted(list(freq.keys())):
+                ans.append(x)
+                freq[x] -= 1
+                if freq[x] == 0:
+                    del freq[x]
         return ans
+        
