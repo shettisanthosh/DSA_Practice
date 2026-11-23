@@ -1,5 +1,5 @@
 class Solution:
     def minimizeSum(self, nums: List[int]) -> int:
-        nums.sort()
-        n=len(nums)
-        return min((nums[n-3]-nums[0]), (nums[n-1]-nums[2]), (nums[n-2]-nums[1]))
+        a = heapq.nsmallest(3, nums)
+        b = heapq.nlargest(3, nums)
+        return min(b[0] - a[2], b[1] - a[1], b[2] - a[0])
